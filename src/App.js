@@ -1,12 +1,6 @@
-import {
-  Backdrop,
-  createMuiTheme,
-  createTheme,
-  CssBaseline,
-  Paper,
-  ThemeProvider,
-} from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Nav from "../src/components/Nav.js";
+import Menu from "../src/components/Menu";
 
 import "./App.css";
 const themeLight = createTheme({
@@ -21,6 +15,7 @@ function App() {
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
       <Nav></Nav>
+      <Menu></Menu>
     </ThemeProvider>
   );
 }
