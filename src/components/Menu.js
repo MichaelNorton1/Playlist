@@ -1,46 +1,32 @@
 import { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 
-const { Paper, Grid, Typography, TextField, Button } = require("@mui/material");
+import SearchModal from "../components/SearchModal.js";
+const { Paper, Grid, Button } = require("@mui/material");
 
 const Menu = () => {
-  const [search, setSearch] = useState("");
-  const [show, setShow] = useState(false);
-  const showSearch = () => {
-    show ? setShow(false) : setShow(true);
-  };
-  console.log(search);
+  const [playlist, setPlaylists] = useState([]);
+
   return (
     <Grid
       container
       alignItems="center"
       justifyContent="space-evenly"
       columnSpacing={2}
-      sx={{ height: "100%", background: "black" }}
+      sx={{ height: 100, background: "black" }}
     >
       <Grid item>
-        <Paper sx={{ p: 1 }}>
-          <TextField
-            sx={{ pa: 2 }}
-            label="Search for Band"
-            onChange={(e) => setSearch(e.target.value)}
-            onClick={() => {
-              showSearch();
-            }}
-          ></TextField>
-          {show ? (
-            <Button>
-              <SearchIcon onClick={() => showSearch()}></SearchIcon>
-            </Button>
-          ) : (
-            <div></div>
-          )}
-          <Typography></Typography>
+        <Paper sx={{}}>
+          <SearchModal
+            playlist={playlist}
+            setPlaylists={setPlaylists}
+            sx={{ p: 1, height: 72, width: 210 }}
+          ></SearchModal>
         </Paper>
       </Grid>
+
       <Grid item>
-        <Paper sx={{ p: 1, height: 72, width: 210 }}>
-          <Typography>My Plalists</Typography>
+        <Paper>
+          <Button sx={{ color: "black" }}>My Playlists</Button>
         </Paper>
       </Grid>
       {/* <Grid item>
