@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-function SearchModal({ setPlaylists, playlist }) {
+function SearchModal({ setPlaylists, playlist, setMySetlist }) {
   // state and togglers
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
@@ -39,50 +39,54 @@ function SearchModal({ setPlaylists, playlist }) {
   const theme = useTheme();
 
   // Fetching functions
-  const getBands = async () => {
+  const getBands = async (e) => {
     const formatBand = search.replace(" ", "-");
-    if (search.length === 0 || year.length === 0) {
-      return;
-    } else {
+    if (e.type === "click") {
       const set = await fetch("http://localhost:3001/band", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ band: formatBand, yearOf: year }),
-      }).then((response) => response.json());
+      })
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
 
-      const sets = await set.map((element) => element.sets.set);
-      return sets;
+      if (!set.error) {
+        const sets = await set.map((element) => element.sets.set);
+        return sets;
+      }
     }
   };
 
-  const changingData = async () => {
-    const stuff = await getBands();
-    if (stuff) {
-      setShow(true);
+  const changingData = async (e) => {
+    if (e) {
+      const stuff = await getBands(e);
+      if (stuff) {
+        setShow(true);
+        ///Below needs a refactor
+        const filter = stuff.filter((element) => element.length > 0);
+        let z = [];
+        for (let x of filter) {
+          z.push(...x);
+        }
 
-      const filter = stuff.filter((element) => element.length > 0);
-      let z = [];
-      for (let x of filter) {
-        z.push(...x);
-      }
-
-      let final = [];
-      for (let g of z) {
-        for (let songs of g.song) {
-          if (!final.includes(songs.name)) {
-            final.push(songs.name);
+        let final = [];
+        for (let g of z) {
+          for (let songs of g.song) {
+            if (!final.includes(songs.name)) {
+              final.push(songs.name);
+            }
           }
         }
+        setSingleSearch(final);
+        setPlaylists((previous) => {
+          if (previous.length > 0) return [...previous, singleSearch];
+          else {
+            return [singleSearch];
+          }
+        });
       }
-      setSingleSearch(final);
-      setPlaylists((previous) => {
-        if (previous.length > 0) return [...previous, singleSearch];
-        else {
-          return [singleSearch];
-        }
-      });
     }
   };
 
@@ -114,7 +118,7 @@ function SearchModal({ setPlaylists, playlist }) {
                 <Button>
                   <SearchIcon
                     fontSize="large"
-                    onClick={() => changingData()}
+                    onClick={(e) => changingData(e)}
                   ></SearchIcon>
                 </Button>
               </div>
@@ -130,6 +134,31 @@ function SearchModal({ setPlaylists, playlist }) {
                 >
                   {search}
                 </Typography>
+                <Button
+                  onClick={() => {
+                    setMySetlist((previous) => {
+                      if (previous.length === 0) {
+                        return [{ band: search, set: singleSearch }];
+                      } else {
+                        return [
+                          ...previous,
+                          { band: search, set: singleSearch },
+                        ];
+                      }
+                    });
+                  }}
+                  sx={{
+                    color: theme.palette.background.default,
+                    m: 2,
+                    borderRadius: 25,
+                    border: "black",
+                    background: "white",
+                    ":hover": { background: "black" },
+                  }}
+                  // variant="outlined"
+                >
+                  Add to Playlists
+                </Button>
                 <Results singleSearch={singleSearch}></Results>
               </Box>
             )}

@@ -1,10 +1,4 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
 export default function Results({ singleSearch }) {
   return (
@@ -19,7 +13,7 @@ export default function Results({ singleSearch }) {
     >
       {singleSearch.length > 0 ? (
         singleSearch.map((value, index) => (
-          <ListItemButton divider>
+          <ListItemButton key={value} divider>
             <ListItem key={value} disableGutters>
               <ListItemText primary={index + 1 + ". " + value} />
             </ListItem>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import SearchModal from "../components/SearchModal.js";
 const { Paper, Grid, Button } = require("@mui/material");
 
-const Menu = () => {
+const Menu = ({ setMySetlist }) => {
   const [playlist, setPlaylists] = useState([]);
 
   return (
@@ -17,6 +17,7 @@ const Menu = () => {
       <Grid item>
         <Paper sx={{}}>
           <SearchModal
+            setMySetlist={setMySetlist}
             playlist={playlist}
             setPlaylists={setPlaylists}
             sx={{ p: 1, height: 72, width: 210 }}
@@ -26,7 +27,7 @@ const Menu = () => {
 
       <Grid item>
         <Paper>
-          <Button sx={{ color: "black" }}>My Playlists</Button>
+          <Button sx={{ color: "black" }}>LogIn to Spotify </Button>
         </Paper>
       </Grid>
       {/* <Grid item>
