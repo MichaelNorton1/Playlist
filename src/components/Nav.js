@@ -1,15 +1,28 @@
-import { Grid, Paper, Typography, Slide } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { Grid, Paper, Typography, Slide, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const Nav = () => {
   const [checked, setChecked] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     setChecked(true);
   }, []);
 
   return (
-    <Grid container justifyContent="center" sx={{ p: 4 }}>
+    <Grid
+      container
+      sx={{
+        display: "flex",
+        m: "auto",
+        [theme.breakpoints.up("xs")]: {
+          width: "100%",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        },
+      }}
+    >
       <Grid item xs={3}>
         <Slide
           direction="right"
@@ -22,8 +35,8 @@ const Nav = () => {
             <Paper
               sx={{
                 borderRadius: 16,
-                width: 240,
-                height: 50,
+                // width: 240,
+                // height: 50,
                 boxShadow: 4,
                 ":hover": { boxShadow: 15 },
               }}

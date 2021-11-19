@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { AppBar, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Nav from "../src/components/Nav.js";
 import Menu from "../src/components/Menu";
 
@@ -14,14 +14,21 @@ const themeLight = createTheme({
 });
 function App() {
   const [mySetlist, setMySetlist] = useState([]);
-  console.log(mySetlist);
+
+  const deleteHandler = (band) => {
+    console.log(mySetlist);
+    const filtered = mySetlist.filter((set) => set.band !== band);
+    setMySetlist(filtered);
+  };
 
   return (
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
+
       <Nav></Nav>
+
       <Menu setMySetlist={setMySetlist}></Menu>
-      <Display mySetlist={mySetlist}></Display>
+      <Display mySetlist={mySetlist} deleteHandler={deleteHandler}></Display>
     </ThemeProvider>
   );
 }

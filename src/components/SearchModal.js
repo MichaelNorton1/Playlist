@@ -42,7 +42,7 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
   const getBands = async (e) => {
     const formatBand = search.replace(" ", "-");
     if (e.type === "click") {
-      const set = await fetch("http://localhost:3001/band", {
+      const set = await fetch("http://localhost:8888/band", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -152,7 +152,7 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
                     m: 2,
                     borderRadius: 25,
                     border: "black",
-                    background: "white",
+                    background: "black",
                     ":hover": { background: "black" },
                   }}
                   // variant="outlined"

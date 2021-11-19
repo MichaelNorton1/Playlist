@@ -2,16 +2,26 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  Button,
   ListItem,
   ListItemButton,
   ListItemText,
   Paper,
   Typography,
 } from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-const Display = ({ mySetlist }) => {
+const Display = ({ mySetlist, deleteHandler }) => {
   return (
-    <Paper>
+    <Paper
+      sx={{
+        m: 2,
+        borderRadius: 10,
+        height: 240,
+        background: "linear-gradient(to right bottom, white, #0000)",
+      }}
+    >
       {mySetlist.length > 0 ? (
         mySetlist.map((set) => {
           return (
@@ -24,6 +34,16 @@ const Display = ({ mySetlist }) => {
                 <Typography>{set.band}</Typography>
               </AccordionSummary>
               <AccordionDetails>
+                <Button
+                  onClick={() => {
+                    deleteHandler(set.band);
+                  }}
+                  color="error"
+                  endIcon={<DeleteForeverIcon />}
+                >
+                  {" "}
+                  Delete from setlist
+                </Button>
                 {set.set.map((value, index) => (
                   <ListItemButton key={value} divider>
                     <ListItem key={value} disableGutters>
@@ -36,7 +56,12 @@ const Display = ({ mySetlist }) => {
           );
         })
       ) : (
-        <div> Search and bands to your Playlist!</div>
+        <Box sx={{}}>
+          <Typography justifyContent="center" textAlign="center" width="100%">
+            {" "}
+            Search and add artists to your Playlist!
+          </Typography>
+        </Box>
       )}
     </Paper>
   );
