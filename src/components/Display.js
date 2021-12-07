@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-const Display = ({ mySetlist, deleteHandler }) => {
+import { Add } from "@mui/icons-material";
+const Display = ({ mySetlist, deleteHandler, makePlaylist }) => {
   return (
     <Paper
       sx={{
@@ -38,11 +39,20 @@ const Display = ({ mySetlist, deleteHandler }) => {
                   onClick={() => {
                     deleteHandler(set.band);
                   }}
+                  style={{ border: "2px solid", margin: 4 }}
                   color="error"
                   endIcon={<DeleteForeverIcon />}
                 >
                   {" "}
                   Delete from setlist
+                </Button>
+                <Button
+                  onClick={() => makePlaylist(set.band)}
+                  style={{ border: "2px solid" }}
+                  endIcon={<Add></Add>}
+                >
+                  {" "}
+                  add to Spotify
                 </Button>
                 {set.set.map((value, index) => (
                   <ListItemButton key={value} divider>
@@ -59,7 +69,7 @@ const Display = ({ mySetlist, deleteHandler }) => {
         <Box sx={{}}>
           <Typography justifyContent="center" textAlign="center" width="100%">
             {" "}
-            Search and add artists to your Playlist!
+            Login and add artists to your Playlist!
           </Typography>
         </Box>
       )}

@@ -1,32 +1,17 @@
-import { useEffect, useState } from "react";
-import querystring from "query-string";
+import { useState } from "react";
+
 import SearchModal from "../components/SearchModal.js";
-import { Image } from "@mui/icons-material";
+
 import pic from "../spotify.png";
 
-const { Paper, Grid, Button, SvgIcon, Avatar, Icon } = require("@mui/material");
+const { Paper, Grid, Button, Avatar } = require("@mui/material");
 
-const Menu = ({ setMySetlist }) => {
+const Menu = ({ setMySetlist, loggedIn }) => {
   const [playlist, setPlaylists] = useState([]);
-  const svgIcon = (
-    <Icon>
-      <img
-        alt="edit"
-        src="/Users/michaelnorton/Desktop/Portfolio/Playlist app/playlistapp/public/spotify.png"
-      />
-    </Icon>
-  );
-  const spotifyLogin = () => {
-    // fetch("http://localhost:3001/login")
-    //   .then((res) => console.log(res))
-    //   .catch((error) => console.log(error));
 
+  const spotifyLogin = () => {
     window.location = "http://localhost:8888/login";
   };
-
-  useEffect(() => {
-    let parsed = querystring.parse(window.location.search);
-  }, []);
 
   return (
     <Grid
@@ -44,6 +29,7 @@ const Menu = ({ setMySetlist }) => {
       <Grid item>
         <Paper sx={{}}>
           <SearchModal
+            loggedIn={loggedIn}
             setMySetlist={setMySetlist}
             playlist={playlist}
             setPlaylists={setPlaylists}
@@ -60,15 +46,10 @@ const Menu = ({ setMySetlist }) => {
             sx={{ color: "black" }}
             endIcon={<Avatar src={pic}></Avatar>}
           >
-            Add to Spotify{" "}
+            Login to Spotify{" "}
           </Button>
         </Paper>
       </Grid>
-      {/* <Grid item>
-        <Paper sx={{ p: 2, height: 72, width: 210 }}>
-          <Typography> </Typography>
-        </Paper>
-      </Grid> */}
     </Grid>
   );
 };

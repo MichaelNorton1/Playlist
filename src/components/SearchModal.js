@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Results from "./Results";
 import { useTheme } from "@emotion/react";
-
+import CircularProgress from "@mui/material/CircularProgress";
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,19 +20,21 @@ const style = {
   p: 4,
 };
 
-function SearchModal({ setPlaylists, playlist, setMySetlist }) {
+function SearchModal({ setPlaylists, loggedIn, setMySetlist }) {
   // state and togglers
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(null);
   const [show, setShow] = useState(false);
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState("2021");
   const [open, setOpen] = useState(false);
   const [singleSearch, setSingleSearch] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setSearch("");
     setSingleSearch("");
     setShow(false);
+    setLoading(false);
   };
 
   // getting theme
@@ -40,8 +42,12 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
 
   // Fetching functions
   const getBands = async (e) => {
+    if (!search && year.length < 4) {
+      return;
+    }
     const formatBand = search.replace(" ", "-");
     if (e.type === "click") {
+      setLoading(true);
       const set = await fetch("http://localhost:8888/band", {
         method: "post",
         headers: {
@@ -53,26 +59,34 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
         .catch((error) => console.log(error));
 
       if (!set.error) {
+        setLoading(false);
         const sets = await set.map((element) => element.sets.set);
         return sets;
+      }
+      if (set.error) {
+        setLoading(false);
+        return set;
       }
     }
   };
 
   const changingData = async (e) => {
     if (e) {
-      const stuff = await getBands(e);
-      if (stuff) {
+      const songs = await getBands(e);
+      if (!songs.error) {
+        setLoading(false);
         setShow(true);
         ///Below needs a refactor
-        const filter = stuff.filter((element) => element.length > 0);
-        let z = [];
-        for (let x of filter) {
-          z.push(...x);
-        }
+
+        let filter = [];
+        songs.forEach((element) => {
+          if (element.length > 0) {
+            filter.push(...element);
+          }
+        });
 
         let final = [];
-        for (let g of z) {
+        for (let g of filter) {
           for (let songs of g.song) {
             if (!final.includes(songs.name)) {
               final.push(songs.name);
@@ -86,6 +100,8 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
             return [singleSearch];
           }
         });
+      } else {
+        setLoading(false);
       }
     }
   };
@@ -93,7 +109,11 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
   return (
     <div>
       <div>
-        <Button sx={{ color: "black" }} onClick={handleOpen}>
+        <Button
+          disabled={!loggedIn}
+          sx={{ color: "black" }}
+          onClick={handleOpen}
+        >
           Search For Artists
         </Button>
         <Modal
@@ -112,14 +132,19 @@ function SearchModal({ setPlaylists, playlist, setMySetlist }) {
                 ></TextField>
                 <TextField
                   sx={{ pa: 2 }}
+                  defaultValue="2021"
                   label="Year"
                   onChange={(e) => setYear(e.target.value)}
                 ></TextField>
                 <Button>
-                  <SearchIcon
-                    fontSize="large"
-                    onClick={(e) => changingData(e)}
-                  ></SearchIcon>
+                  {loading ? (
+                    <CircularProgress></CircularProgress>
+                  ) : (
+                    <SearchIcon
+                      fontSize="large"
+                      onClick={(e) => changingData(e)}
+                    ></SearchIcon>
+                  )}
                 </Button>
               </div>
             ) : (

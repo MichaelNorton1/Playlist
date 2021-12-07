@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Grid, Paper, Typography, Slide, useMediaQuery } from "@mui/material";
+import { Grid, Paper, Typography, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const Nav = () => {
@@ -38,7 +38,6 @@ const Nav = () => {
                 // width: 240,
                 // height: 50,
                 boxShadow: 4,
-                ":hover": { boxShadow: 15 },
               }}
               variant="outlined"
             >
