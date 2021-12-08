@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Playlist/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/Playlist/static/js/main.7251f9ba.chunk.js",
-    "main.js.map": "/Playlist/static/js/main.7251f9ba.chunk.js.map",
-    "runtime-main.js": "/Playlist/static/js/runtime-main.ecd8413d.js",
-    "runtime-main.js.map": "/Playlist/static/js/runtime-main.ecd8413d.js.map",
-    "static/js/2.0c5e06ac.chunk.js": "/Playlist/static/js/2.0c5e06ac.chunk.js",
-    "static/js/2.0c5e06ac.chunk.js.map": "/Playlist/static/js/2.0c5e06ac.chunk.js.map",
-    "static/js/3.bfe16dba.chunk.js": "/Playlist/static/js/3.bfe16dba.chunk.js",
-    "static/js/3.bfe16dba.chunk.js.map": "/Playlist/static/js/3.bfe16dba.chunk.js.map",
-    "index.html": "/Playlist/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/Playlist/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.0c5e06ac.chunk.js.LICENSE.txt": "/Playlist/static/js/2.0c5e06ac.chunk.js.LICENSE.txt",
-    "static/media/spotify.2ad9efcc.png": "/Playlist/static/media/spotify.2ad9efcc.png"
+    "main.css": "/playlist/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/playlist/static/js/main.87c7aced.chunk.js",
+    "main.js.map": "/playlist/static/js/main.87c7aced.chunk.js.map",
+    "runtime-main.js": "/playlist/static/js/runtime-main.003f09f8.js",
+    "runtime-main.js.map": "/playlist/static/js/runtime-main.003f09f8.js.map",
+    "static/js/2.2df12bc6.chunk.js": "/playlist/static/js/2.2df12bc6.chunk.js",
+    "static/js/2.2df12bc6.chunk.js.map": "/playlist/static/js/2.2df12bc6.chunk.js.map",
+    "static/js/3.bfe16dba.chunk.js": "/playlist/static/js/3.bfe16dba.chunk.js",
+    "static/js/3.bfe16dba.chunk.js.map": "/playlist/static/js/3.bfe16dba.chunk.js.map",
+    "index.html": "/playlist/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/playlist/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.2df12bc6.chunk.js.LICENSE.txt": "/playlist/static/js/2.2df12bc6.chunk.js.LICENSE.txt",
+    "static/media/spotify.2ad9efcc.png": "/playlist/static/media/spotify.2ad9efcc.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ecd8413d.js",
-    "static/js/2.0c5e06ac.chunk.js",
+    "static/js/runtime-main.003f09f8.js",
+    "static/js/2.2df12bc6.chunk.js",
     "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.7251f9ba.chunk.js"
+    "static/js/main.87c7aced.chunk.js"
   ]
 }
